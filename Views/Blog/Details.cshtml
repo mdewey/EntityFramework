@@ -53,8 +53,15 @@
             @Html.DisplayFor(model => model.IsPublished)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PublishedDate)
-        </dt>
+            @if (!Model.IsPublished)
+            {
+                <a asp-controller="Blog" asp-action="Publish" asp-route-id=@Model.Id class="btn btn-success">Publish</a>
+            }
+            else
+            {
+                 @Html.DisplayNameFor(model => model.PublishedDate)
+            }
+             </dt>
         <dd>
             @Html.DisplayFor(model => model.PublishedDate)
         </dd>

@@ -15,9 +15,15 @@ namespace EntityFramework.Models
         public string Body{get;set;}
 
         public bool IsPublished {get;set;} = false;
-        public DateTime PublishedDate {get;set;} = DateTime.Now;
+        public DateTime? PublishedDate {get;set;} = null;
 
         public IEnumerable<Post> Posts {get;set;} = new HashSet<Post>();
+
+
+        public void Publish(){
+            this.IsPublished = true;
+            this.PublishedDate = DateTime.Now;
+        }
 
     }
 }

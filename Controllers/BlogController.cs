@@ -43,6 +43,22 @@ namespace EntityFramework.Controllers
             return View(blog);
         }
 
+        public IActionResult Publish(int id)
+        {
+            var blog = _context.Blogs
+                .SingleOrDefault(m => m.Id == id);
+            if (blog == null)
+            {
+                return NotFound();
+            }
+
+            blog.Publish();
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         // GET: Blog/Create
         public IActionResult Create()
         {
