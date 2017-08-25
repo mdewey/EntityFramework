@@ -21,7 +21,9 @@ namespace EntityFramework.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.Blogs.ToList());
+            // show all published blogs
+            var vm = _context.Blogs.Where(w => w.IsPublished);
+            return View(vm);
         }
 
 
