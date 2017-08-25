@@ -28,21 +28,49 @@ in console
 
 // Only do once and on dev machine
 // create user 
-createuser dev
-\password dev
-psql netblog2 
 
+``` bash
+createuser dev
+pgcli blogger
+```
+Inside pgcli
+
+```bash
+\password dev
 ALTER USER dev WITH SUPERUSER;
+```
 
 ### Create context
 
 create dbcontext
 ```
-dotnet ef dbcontext scaffold "Host=localhost;Database=netblog;Username=dev;Password=dev" Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet ef dbcontext scaffold "Host=localhost;Database=blogger;Username=dev;Password=dev" Npgsql.EntityFrameworkCore.PostgreSQL
 ```
+
+### Add to startup.cs
+
+``` c#
+ services.AddDbContext<bloggerContext>();
+```
+
+
 ### create classes
 Model your data using POCO
 
 
 ### Create/Update Database
 add & run migration
+
+
+### Access in Controller
+add the following to a controller, its a private method and a ctor
+
+```
+private readonly bloggerContext _context;
+
+public HomeController(bloggerContext context)
+{
+    _context = context;
+}
+
+```
