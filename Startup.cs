@@ -22,6 +22,7 @@ namespace EntityFramework
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<DataContext.SuperBlogContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

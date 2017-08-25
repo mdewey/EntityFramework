@@ -24,14 +24,14 @@ in console
 
 ### Create database
 // create database using pgcli
-`createdb blogger`
+`createdb superblog`
 
 // Only do once and on dev machine
 // create user 
 
 ``` bash
 createuser dev
-pgcli blogger
+psql blogger
 ```
 Inside pgcli
 
