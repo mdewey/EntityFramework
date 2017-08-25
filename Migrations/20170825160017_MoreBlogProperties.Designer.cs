@@ -4,14 +4,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace EntityFramework.Migrations
 {
     [DbContext(typeof(SuperBlogContext))]
-    partial class SuperBlogContextModelSnapshot : ModelSnapshot
+    [Migration("20170825160017_MoreBlogProperties")]
+    partial class MoreBlogProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,34 +45,6 @@ namespace EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("EntityFramework.Models.Post", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BlogId");
-
-                    b.Property<string>("Body");
-
-                    b.Property<string>("User");
-
-                    b.Property<string>("UserImage");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("Post");
-                });
-
-            modelBuilder.Entity("EntityFramework.Models.Post", b =>
-                {
-                    b.HasOne("EntityFramework.Models.Blog", "Blog")
-                        .WithMany("Posts")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
