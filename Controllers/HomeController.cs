@@ -19,10 +19,12 @@ namespace EntityFramework.Controllers
             this._context = context;
         }
 
+
         public IActionResult Index()
         {
             // show all published blogs
             var vm = _context.Blogs.Where(w => w.IsPublished);
+            Console.WriteLine(vm.First().Posts?.Count());
             return View(vm);
         }
 

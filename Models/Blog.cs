@@ -17,7 +17,7 @@ namespace EntityFramework.Models
         public bool IsPublished {get;set;} = false;
         public DateTime? PublishedDate {get;set;} = null;
 
-        public IEnumerable<Post> Posts {get;set;} = new HashSet<Post>();
+        public ICollection<Post> Posts {get;set;} = new HashSet<Post>();
 
 
         public void Publish(){

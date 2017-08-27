@@ -34,7 +34,10 @@ namespace EntityFramework.Controllers
             }
 
             var blog = await _context.Blogs
+                .Include(i => i.Posts) // this line is the JOIN statement 
                 .SingleOrDefaultAsync(m => m.Id == id);
+            Console.WriteLine(blog.Posts?.Count());
+            
             if (blog == null)
             {
                 return NotFound();
@@ -160,6 +163,26 @@ namespace EntityFramework.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddPost([FromRoute] int id, [FromForm] string comment)
+        {
+            Console.WriteLine(id.ToString());
+            Console.WriteLine(comment);
+            
+            // put the object into context
+            var blog = await _context.Blogs.SingleOrDefaultAsync(s => s.Id == id);
+            // modify it
+            blog.Posts.Add(new Post
+            {
+                Body = comment
+            });
+            // save
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
 
         private bool BlogExists(int id)
         {

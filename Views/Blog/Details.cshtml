@@ -1,7 +1,6 @@
-@model EntityFramework.Models.Blog
-
-@{
-    ViewData["Title"] = "Details";
+@model EntityFramework.Models.Blog 
+@{ 
+    ViewData["Title"] = "Details"; 
 }
 
 <h2>Details</h2>
@@ -53,19 +52,39 @@
             @Html.DisplayFor(model => model.IsPublished)
         </dd>
         <dt>
-            @if (!Model.IsPublished)
-            {
-                <a asp-controller="Blog" asp-action="Publish" asp-route-id=@Model.Id class="btn btn-success">Publish</a>
-            }
-            else
-            {
-                 @Html.DisplayNameFor(model => model.PublishedDate)
-            }
-             </dt>
+            @if (!Model.IsPublished) {
+            <a asp-controller="Blog" asp-action="Publish" asp-route-id=@Model.Id class="btn btn-success">Publish</a> } else
+            { @Html.DisplayNameFor(model => model.PublishedDate) }
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.PublishedDate)
         </dd>
     </dl>
+</div>
+<div>
+    <h1>posts for this blog:</h1>
+    <div>
+        @foreach(var comment in Model.Posts)
+        {
+            <div class="media">
+                <div class="media-left">
+                    <a href="#">
+                            <img class="media-object" src="@comment.UserImage" alt="Profile Picture">
+                        </a>
+                </div>
+                <div class="media-body">
+                    @comment.Body
+                </div>
+            </div>
+        }
+       
+    </div>
+    <form asp-action="AddPost" asp-route-id=@Model.Id method="POST">
+        <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+        <button class="btn btn-success" type="submit">Add Post</button>
+    </form>
+
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
